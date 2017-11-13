@@ -1,16 +1,30 @@
 'use strict'
 
-let express = require('express');
-let bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const os = require('os');
 
-let app = express();
+const app = express();
 
 //cargar rutas
-var user_routes = require('./routes/user')
+const user_routes = require('./routes/user')
+const artist_routes = require('./routes/artist')
+const album_routes = require('./routes/album')
+const song_routes = require('./routes/song')
 
 
-app.use(bodyParser.urlencoded({extended:false}))
-app.use(bodyParser.json())
+
+
+app
+ .use(cors())
+ .use(bodyParser.urlencoded({extended:false}))
+ .use(bodyParser.json())
+ .use('/uploads', express.static(os.tmpdir()))
+ .use('/api', user_routes)
+ .use('/api', artist_routes)
+ .use('/api', album_routes)
+  .use('/api', song_routes)
 
 //configurar cabeceras http
 

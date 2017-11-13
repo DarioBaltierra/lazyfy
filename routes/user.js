@@ -1,10 +1,11 @@
-'user strict'
+'use strict'
+const router = require('express').Router() // carga el Router de express
+const UserController = require('../controles/user') //carga el controlador de
+usuarios
+router
+ .get('/prueba', UserController.prueba)
+ .post('/register', UserController.saveUser)
+ .post('/login', UserController.loginUser)
+ .get('/users', UserController.listUsers)
 
-let express = require('express');
-let UserController = require('../controles/UserController');
-
-let api = express.Router();
-
-api.get('/user', UserController.prueba);
-
-module.exports = api;
+module.exports = router
